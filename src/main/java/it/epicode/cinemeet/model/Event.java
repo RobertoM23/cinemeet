@@ -1,9 +1,6 @@
 package it.epicode.cinemeet.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Event {
@@ -14,6 +11,9 @@ public class Event {
     private String movieTitle;
     private String date;
     private String cinema;
+
+    @ManyToOne
+    private User creator;
 
     public Long getId() {
         return id;
