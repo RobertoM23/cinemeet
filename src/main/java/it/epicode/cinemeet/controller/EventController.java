@@ -44,4 +44,9 @@ public class EventController {
 
         return "Utente iscritto ed email inviata";
     }
+
+    @GetMapping("/suggested/{userId}")
+    public List<Event> getSuggestedEvents(@PathVariable Long userId) {
+        return eventRepo.findByCreatorIdNot(userId);
+    }
     }
