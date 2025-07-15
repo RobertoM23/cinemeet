@@ -49,4 +49,28 @@ public class EventController {
     public List<Event> getSuggestedEvents(@PathVariable Long userId) {
         return eventRepo.findByCreatorIdNot(userId);
     }
+
+    @GetMapping("/filter")
+    public List<Event> filterEvents(
+            @RequestParam(required = false) String cinema,
+            @RequestParam(required = false) String date,
+            @RequestParam(required = false) String movieTitle) {
+
+        if (cinema != null) {
+            return eventRepo.findByCinema(cinema);
+        }
+        if (date != null) {
+            return eventRepo.findByDate(date);
+        }
+        if (movieTitle != null) {
+            return eventRepo.findByMovieTitleContainingIgnoreCase(movieTitle);
+        }
+        return eventRepo.findAll();
+    }
+
+    @DeleteMapping("/{eventId}")
+    public String deleteEvent(@PathVariable Long eventId) {
+        eventRepo.deleteById(eventId);
+        return  "Evento cancellato";
+    }
     }
